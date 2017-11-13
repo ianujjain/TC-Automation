@@ -1,12 +1,12 @@
-﻿'USEUNIT qaUtil
-'USEUNIT qaGlobalVar
+﻿'USEUNIT qaGlobalVar
+'USEUNIT qaObject
+'USEUNIT qaUtil
 
 Dim arrSheet()
 
 Sub Main
   Dim ColumnsCount 
   ColumnsCount = GetColumnCount
-  Log.Message ColumnsCount
   For Arrindex = 2 To ColumnsCount Step 2
     call TerminateProcess
     ReadExcelFile(Arrindex)
@@ -17,7 +17,7 @@ End Sub
 Function GetColumnCount
   Dim objExcel, objSheet, objCells
   GetColumnCount = Null
-
+  Call qaObject.CloseExcel
   Set objExcel = CreateObject("Excel.Application")
   objExcel.DisplayAlerts = 0  
   Call objExcel.Workbooks.Open("D:\A.xlsx", False, True)
@@ -31,12 +31,13 @@ Function GetColumnCount
 End Function
 
 Function ReadExcelFile(index)
-
   ' Local variable declarations
-  Dim objExcel, objSheet, objCells
+  Dim objExcel
+  Dim objSheet, objCells
   Dim nUsedRows, nUsedCols, nTop, nLeft, nRow, nCol
   'Dim arrSheet()
-
+  
+  Call qaObject.CloseExcel
   Set objExcel = CreateObject("Excel.Application")
   objExcel.DisplayAlerts = 0  
   Call objExcel.Workbooks.Open("D:\A.xlsx", False, True)
@@ -64,10 +65,10 @@ Function ReadExcelFile(index)
     arrSheet(index,0) = aqString.GetListItem(myArrayList(index),0)
     arrSheet(index,1) = aqString.GetListItem(myArrayList(index),1)
   Next
-  Log.Message "Row Count: "& UBound(arrSheet) &"; Col Count: " & UBound(arrSheet,2)
+  'Log.Message "Row Count: "& UBound(arrSheet) &"; Col Count: " & UBound(arrSheet,2)
   Call CreateXSLLogFile
-  Call objExcel.ActiveWorkbook.Close(False)
-  objExcel.Application.Quit
+  'Call objExcel.ActiveWorkbook.Close(False)
+  'objExcel.Application.Quit
 End Function
 
 Function CreateXSLLogFile
@@ -76,10 +77,9 @@ Function CreateXSLLogFile
   CreateLogFile = False
   TimeStamp =  qaUtil.GetTimestamp()
   
-  qaGlobalVar.REPORTPATH = Project.Path + "TestResults\" & qaGlobalVar.SUITETORUN & TimeStamp & ".xlsx"
+  qaGlobalVar.REPORTPATH = Project.Path + "TestResults\" & qaGlobalVar.SUITETORUN &"_"& TimeStamp & ".xlsx"
 
-  Call qaUtil.closeOpenApp("excel")
-    
+  Call qaObject.CloseExcel 
   Set xlobj = Createobject("Excel.Application")
   xlobj.Visible= True   
   xlobj.Workbooks.Add
@@ -100,7 +100,7 @@ End Function
 
 Sub CreateXSLLogSheet(ReportPath,SheetName,AppIndex)
   Dim xlobj, bookObj, wsheetObj, objRange
-  Call TerminateProcess
+  Call qaObject.CloseExcel
   Set xlobj =  Createobject("Excel.Application")
   Set bookObj = xlobj.Workbooks.Open(ReportPath)
   
@@ -114,12 +114,12 @@ Sub CreateXSLLogSheet(ReportPath,SheetName,AppIndex)
   
   For rowIndex = 0 To UBound(arrSheet)
       'Row wise
-      'wsheetObj.cells(rowIndex+1,1) = arrSheet(rowIndex,0)
-      'wsheetObj.cells(rowIndex+1,2) = arrSheet(rowIndex,1)
+      wsheetObj.cells(rowIndex+1,1) = arrSheet(rowIndex,0)
+      wsheetObj.cells(rowIndex+1,2) = arrSheet(rowIndex,1)
       
       'Col wise
-    wsheetObj.cells(1,rowIndex+1) = arrSheet(rowIndex,0)
-    wsheetObj.cells(2,rowIndex+1) = arrSheet(rowIndex,1)
+    'wsheetObj.cells(1,rowIndex+1) = arrSheet(rowIndex,0)
+    'wsheetObj.cells(2,rowIndex+1) = arrSheet(rowIndex,1)
   Next
 
 

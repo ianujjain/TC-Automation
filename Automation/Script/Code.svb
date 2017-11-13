@@ -26,3 +26,56 @@
     Next
   Next
 End Sub
+
+Function SendEmail(mFrom, mTo, mSubject, mBody,	mAttachment)
+  Dim i, schema, mConfig, mMessage
+
+  Err.Clear
+  On Error Resume Next
+
+  schema = "http://schemas.microsoft.com/cdo/configuration/"
+  Set mConfig = Sys.OleObject("CDO.Configuration")
+  mConfig.Fields.Item(schema + "sendusing") = 2 ' cdoSendUsingPort
+  mConfig.Fields.Item(schema + "smtpserver") = "smtp.gmail.com" ' SMTP server
+  mConfig.Fields.Item(schema + "smtpserverport") = 465 ' Port number
+  mConfig.Fields.Item(schema + "smtpauthenticate") = 1 ' Authentication mechanism
+  mConfig.Fields.Item(schema + "smtpusessl") = true ' Authentication mechanism
+  mConfig.Fields.Item(schema + "sendusername") = "ianuj.jain.10@gmail.com" ' User name (if needed)
+  mConfig.Fields.Item(schema + "sendpassword") = "Russia@1227" ' User password (if needed)
+  mConfig.Fields.Update
+
+  Set mMessage = Sys.OleObject("CDO.Message")
+  mMessage.Configuration = mConfig
+  mMessage.From = mFrom
+  mMessage.To = mTo
+  mMessage.Subject = mSubject
+  mMessage.HTMLBody = mBody
+
+  aqString.ListSeparator = ","
+  For i = 0 To aqString.GetListLength(mAttachment) - 1 
+    mMessage.AddAttachment aqString.GetListItem(mAttachment, i)
+  Next
+
+  mMessage.Send
+
+  If Err.Number > 0 Then
+    Log.Error "Email cannot be sent", Err.Description
+    SendEMail = False
+  Else
+    Log.Message "Message to <" + mTo + "> was successfully sent"
+    SendEMail = True
+  End If
+End Function
+
+Sub MainTest
+  For index = 1 To 5
+    If SendEmail( "ianuj.jain.10@gmail.com",_
+                "jaindrive@hotmail.com",_
+                "Subject"&index, _
+                "Message body",_
+                "D:\Automation\Automation\Automation\TestResults\ADMINREG_Results_11.13.2017.10.10.53.PM.xlsx") Then
+    Else
+      Log.Message "Not Send"
+    End If
+  Next
+End Sub
