@@ -37,7 +37,7 @@ Function ReadExcelFile(index)
   Dim nUsedRows, nUsedCols, nTop, nLeft, nRow, nCol
   'Dim arrSheet()
 
-  Set objExcel = GetObject("","Excel.Application")
+  Set objExcel = CreateObject("Excel.Application")
   objExcel.DisplayAlerts = 0  
   Call objExcel.Workbooks.Open("D:\A.xlsx", False, True)
   Set objSheet = objExcel.ActiveWorkbook.Worksheets(1)
