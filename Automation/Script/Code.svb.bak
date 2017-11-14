@@ -27,7 +27,6 @@
   Next
 End Sub
 
-
 Function SendEmail(mFrom, mTo, mSubject, mBody,	mAttachment)
   Dim i, schema, mConfig, mMessage
 

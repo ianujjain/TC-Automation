@@ -23,74 +23,92 @@
 		<Node name="logs">
 			<Node name="log idx=0000">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9195013773"/>
+				<Prp name="datetime" type="D" value="43052.9374769907"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{493F6158-78B8-4210-B92B-F8571731750D}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Exceldemo\Main]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_04 PM_04_919\Description.tcLog"/>
+				<Prp name="key" type="S" value="{90C027F6-5734-4BF9-98A7-B617BCB3EB47}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\MainTest]"/>
+				<Prp name="relpath" type="S" value="11_13_2017_10_29 PM_58_12\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0001">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9205178009"/>
+				<Prp name="datetime" type="D" value="43052.9378418171"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{4A92E6AC-3EDB-41E8-9BC4-229F8EF13724}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_05 PM_32_739\Description.tcLog"/>
+				<Prp name="key" type="S" value="{F97CD241-ED9A-45EB-AAE8-4327CD74C1E5}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\MainTest]"/>
+				<Prp name="relpath" type="S" value="11_13_2017_10_30 PM_29_533\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0002">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9249696644"/>
-				<Prp name="description" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="key" type="S" value="{0A58DADD-546F-4E3B-AF43-FA54DDC70677}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_11 PM_57_379\Description.tcLog"/>
+				<Prp name="datetime" type="D" value="43054.0166399306"/>
+				<Prp name="description" type="S" value=""/>
+				<Prp name="key" type="S" value="{017E0091-EBA2-4A6E-BF61-7892F8B65A03}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\MainTest]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_23 AM_57_690\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0003">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9257291898"/>
-				<Prp name="description" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="key" type="S" value="{E6E596EE-37CF-436B-AFE3-69C86972ECAE}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_13 PM_03_3\Description.tcLog"/>
+				<Prp name="datetime" type="D" value="43054.0223646875"/>
+				<Prp name="description" type="S" value=""/>
+				<Prp name="key" type="S" value="{302B77F4-C5F5-4499-A5D5-A3874DE343F9}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\SendEmailByOutlook]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_32 AM_12_309\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0004">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9301746644"/>
+				<Prp name="datetime" type="D" value="43054.0235639005"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{9CDABEB6-221A-49EB-BB30-3EB08482B47F}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_19 PM_27_91\Description.tcLog"/>
+				<Prp name="key" type="S" value="{6CC8D294-FC46-4244-ACFA-2286561413B5}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\SendEmailByOutlook]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_33 AM_55_921\Description.tcLog"/>
 				<Prp name="status" type="I" value="2"/>
 			</Node>
 			<Node name="log idx=0005">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9356816435"/>
+				<Prp name="datetime" type="D" value="43054.0237940046"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{3DE41BFF-5A9B-4A69-B302-E93EAE9967C2}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_27 PM_22_894\Description.tcLog"/>
+				<Prp name="key" type="S" value="{E23A2D62-C4E3-401E-8AF5-CD869F5E57AC}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\SendEmailByOutlook]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_34 AM_15_802\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0006">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9370007407"/>
+				<Prp name="datetime" type="D" value="43054.0243827199"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{130CE3DD-4D92-4C55-8A4A-FE6DFD1945B5}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_10_29 PM_16_864\Description.tcLog"/>
+				<Prp name="key" type="S" value="{C9BD26E2-F058-4CDB-8EFA-5E0B22857079}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\SendEmailByOutlook]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_35 AM_06_667\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 			<Node name="log idx=0007">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43052.9114250926"/>
+				<Prp name="datetime" type="D" value="43054.0248859491"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{3BACF4D3-B175-4DC9-9568-606F469AD1F9}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [Code\MainTest]"/>
-				<Prp name="relpath" type="S" value="11_13_2017_9_52 PM_27_128\Description.tcLog"/>
+				<Prp name="key" type="S" value="{60D71A35-AA39-4AAB-A62C-5A6A5C18D37E}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\SendEmailByOutlook]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_35 AM_50_146\Description.tcLog"/>
+				<Prp name="status" type="I" value="0"/>
+			</Node>
+			<Node name="log idx=0008">
+				<Prp name="caption" type="S" value=""/>
+				<Prp name="datetime" type="D" value="43054.0274853819"/>
+				<Prp name="description" type="S" value=""/>
+				<Prp name="key" type="S" value="{97AFABC9-9635-4CE5-88FB-3A8192483A2B}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\MainTest]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_39 AM_34_737\Description.tcLog"/>
+				<Prp name="status" type="I" value="0"/>
+			</Node>
+			<Node name="log idx=0009">
+				<Prp name="caption" type="S" value=""/>
+				<Prp name="datetime" type="D" value="43054.0281407292"/>
+				<Prp name="description" type="S" value=""/>
+				<Prp name="key" type="S" value="{EA2B3B20-2E66-4B46-9AA1-30179FACB494}"/>
+				<Prp name="nameofroot" type="S" value="Script Test Log [qaSendMail\MainTest]"/>
+				<Prp name="relpath" type="S" value="11_15_2017_12_40 AM_31_359\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 		</Node>

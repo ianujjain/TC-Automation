@@ -1,0 +1,93 @@
+﻿Sub MainTest
+  If SendEmail( "ianuj.jain.10@gmail.com",_
+              "jaindrive@hotmail.com",_
+              "Subject"&index, _
+              "Message body",_
+              "D:\TestResults\A.xlsx,D:\TestResults\B.xlsx,D:\TestResults\C.xlsx") Then
+  Else
+    Log.Message "Not Send"
+  End If
+
+  If SendEmailByOutlook("jaindrive@hotmail.com",_
+              "Outlook", _
+              "Message body",_
+              "D:\TestResults\A.xlsx,D:\TestResults\B.xlsx,D:\TestResults\C.xlsx") Then
+  Else
+    Log.Message "Not Send"
+  End If
+
+End Sub
+
+Function SendEmail(Sender, Recipient, Subject, Body, Attachment)
+  Dim i, schema, mConfig, mMessage
+
+  Err.Clear
+  On Error Resume Next
+
+  schema = "http://schemas.microsoft.com/cdo/configuration/"
+  Set mConfig = Sys.OleObject("CDO.Configuration")
+  mConfig.Fields.Item(schema + "sendusing") = 2 
+  mConfig.Fields.Item(schema + "smtpserver") = "smtp.gmail.com"
+  mConfig.Fields.Item(schema + "smtpserverport") = 465
+  mConfig.Fields.Item(schema + "smtpauthenticate") = 1
+  mConfig.Fields.Item(schema + "smtpusessl") = true
+  mConfig.Fields.Item(schema + "sendusername") = "ianuj.jain.10@gmail.com"
+  mConfig.Fields.Item(schema + "sendpassword") = "Russia@1227"
+  mConfig.Fields.Update
+
+  Set mMessage = Sys.OleObject("CDO.Message")
+  mMessage.Configuration = mConfig
+  mMessage.From = Sender
+  mMessage.To = Recipients
+  mMessage.Subject = Subject
+  mMessage.HTMLBody = Body
+
+  aqString.ListSeparator = ","
+  For i = 0 To aqString.GetListLength(Attachment) - 1 
+    mMessage.AddAttachment aqString.GetListItem(Attachment, i)
+  Next
+
+  mMessage.Send
+
+  If Err.Number > 0 Then
+    Log.Error "Email cannot be sent", Err.Description
+    SendEMail = False
+  Else
+    Log.Message "Message to <" + Recipients + "> was successfully sent"
+    SendEMail = True
+  End If
+End Function
+
+Function SendEmailByOutlook(Recipients,Subject,Body,Attachments)
+  Dim objOutlook, objMail
+  
+  Err.Clear
+  On Error Resume Next
+
+  Set objOutlook = CreateObject("Outlook.Application")
+  Set objMail = objOutlook.CreateItem(0)
+  objMail.Display
+  objMail.Recipients.Add (Recipients)
+  objMail.Subject = Subject
+  objMail.Body = Body
+  
+  aqString.ListSeparator = ","
+  For i = 0 To aqString.GetListLength(Attachments) - 1 
+    objMail.Attachments.Add(aqString.GetListItem(Attachments, i))
+  Next
+  'objMail.Attachments.Add("D:\TestResults\A.xlsx")
+  
+  objMail.Send  
+  objOutlook.Quit
+  Set objMail = Nothing
+  Set objOutlook = Nothing
+
+  If Err.Number > 0 Then
+    Log.Error "Email cannot be sent", Err.Description
+    SendEmailByOutlook = False
+  Else
+    Log.Message "Message to <SendEmailByOutlook> was successfully sent"
+    SendEmailByOutlook = True
+  End If
+  
+End Function
