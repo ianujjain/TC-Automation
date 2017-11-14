@@ -7,7 +7,7 @@
   Else
     Log.Message "Not Send"
   End If
-
+'Send Mail By Outlook
   If SendEmailByOutlook("jaindrive@hotmail.com",_
               "Outlook", _
               "Message body",_
