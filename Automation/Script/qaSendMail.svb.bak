@@ -38,7 +38,7 @@ Function SendEmail(Sender, Recipient, Subject, Body, Attachment)
   Set mMessage = Sys.OleObject("CDO.Message")
   mMessage.Configuration = mConfig
   mMessage.From = Sender
-  mMessage.To = Recipient
+  mMessage.To = Recipients
   mMessage.Subject = Subject
   mMessage.HTMLBody = Body
 
@@ -53,7 +53,7 @@ Function SendEmail(Sender, Recipient, Subject, Body, Attachment)
     Log.Error "Email cannot be sent", Err.Description
     SendEMail = False
   Else
-    Log.Message "Message to <" + Recipient + "> was successfully sent"
+    Log.Message "Message to <" + Recipients + "> was successfully sent"
     SendEMail = True
   End If
 End Function
