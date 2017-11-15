@@ -1,5 +1,4 @@
-﻿'USEUNIT qaAppConfig
-'USEUNIT qaGlobalVar
+﻿'USEUNIT qaGlobalVar
 
 Function GetTimestamp()
   Dim timeStamp
@@ -17,6 +16,7 @@ Sub TerminateProcess
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM Excel.exe /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM OUTLOOK.EXE /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM opera.exe /T")
+  Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM dllhost.exe /T")
 end Sub
 
 sub closeOpenApp(AppName)

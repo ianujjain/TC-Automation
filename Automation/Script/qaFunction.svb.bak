@@ -2,6 +2,12 @@
 'USEUNIT qaLogReport
 'USEUNIT qaGlobalVar
 
+Function OpenBrowser
+  Dim Page
+  Browsers.Item(qaGlobalVar.BROWSERNAME).Run(qaGlobalVar.APPURL)
+  Set Page = Sys.Browser(qaGlobalVar.BROWSERNAME).Page(qaGlobalVar.APPURL)
+End Function
+
 Function Click(ObjSelector)
   Dim WebElement
   Set WebElement = qaObject.GetWebElement(ObjSelector)
@@ -51,7 +57,7 @@ Function Wait(Time)
   aqUtils.Delay(aqConvert.StrToInt(Time))
 End Function
 
-Function LogReport(ObjSelector)
+Function LogReport(ObjSelector,Data)
   Dim IsStatus, WebElements                  
   Set WebElements = qaObject.GetWebElement(ObjSelector)
   If (WebElements is Nothing)Then

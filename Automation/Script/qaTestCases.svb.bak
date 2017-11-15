@@ -1,36 +1,4 @@
-﻿Option Explicit
-
-Function GetTCRowColumnCount(ByVal strFile)
-  Dim objExcel, objSheet
-	Dim RowCount, ColumnCount
-	Dim arrSheet()
-	
-' Default return value
-	GetTCRowColumnCount = Null
-	
-	Set objExcel = CreateObject("Excel.Application")
-	objExcel.DisplayAlerts = 0  
-  
-	Call objExcel.Workbooks.Open(strFile, False, True)
-	Set objSheet = objExcel.ActiveWorkbook.Worksheets(2)
-	
-' Get the number of used rows
-	RowCount = objSheet.UsedRange.Rows.Count
-	
-' Get the number of used columns
-	ColumnCount = objSheet.UsedRange.Columns.Count
-		
-' Close the workbook without saving
-	Call objExcel.ActiveWorkbook.Close(False)
-	
-' Quit Excel
-	objExcel.Application.Quit
-	
-' Return the sheet data to the caller
-	GetTCRowColumnCount = aqConvert.VarToStr(RowCount)+";"+aqConvert.VarToStr(ColumnCount)
-End Function
-
-Function GetArrTestCase(ByRef arrSheet,ByVal strFile)
+﻿Function GetArrTestCase(ByRef arrSheet,ByVal strFile)
 ' Local variable declarations
 	Dim objExcel, objSheet, objCells
 	Dim nUsedRows, nUsedCols, nTop, nLeft, nRow, nCol

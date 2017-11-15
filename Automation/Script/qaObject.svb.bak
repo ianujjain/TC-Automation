@@ -1,5 +1,5 @@
 ﻿'USEUNIT qaGlobalVar
-'USEUNIT qaAppConfig
+'USEUNIT qaUtil
 
 Function GetObject(objSelector)
   Dim findMethod, findParam, strLen, addParam
@@ -132,7 +132,7 @@ Function CreateObjRepo(ByRef ObjRepo, ObjSheetName, XlWorkBk)
   
   CreateObjRepo = FALSE
   
-  Call qaObject.CloseExcel
+  Call qaUtil.closeOpenApp("Excel")
   Set ObjWScript = CreateObject("WScript.Shell")
   Set ObjCDO = CreateObject("CDO.Message")
 	set objexcel = Createobject("Excel.Application")
@@ -161,26 +161,9 @@ Function CreateObjRepo(ByRef ObjRepo, ObjSheetName, XlWorkBk)
 End Function
 
 Function GetObjectRepository(SuiteName) 
-  Call qaAppConfig.InitializeStaticData()
+  Call qaGlobalVar.InitializeStaticData()
   GetObjectRepository = qaGlobalVar.REPMAPPING.item(qaGlobalVar.SUITETORUN)
 End Function
-
-Function GetInputFilePath(SuiteName)
-  GetInputFilePath = Project.Path + "InputfFile\" + qaGlobalVar.APPMAPPING.item(qaGlobalVar.REPMAPPING.item(SuiteName)) + ".xlsx"
-end Function
-
-Function CloseExcel
-   Dim old_app
-   set old_app = Sys.WaitProcess("Excel", 100)
-   if old_app.Exists then
-      call old_app.Close()
-      if old_app.Exists then
-        'Log.Message AppName + " was not closed successfully and will be terminated."
-        old_app.Terminate()
-        aqUtils.Delay 1000
-      end if
-   end if
-end Function
 
 Function GetObjectSelector(objSelectorAlias)
   Dim objSelector
@@ -216,8 +199,8 @@ Function GetWebElementList(objSelector)
   Dim WebElementList
   Set GetWebElementList = NOTHING
   WebElementList = qaObject.GetObject(objSelector)
-  Log.Message UBound(WebElementList,1)
-  If Not(Isnull(WebElementList)) Then
+  Count = BuiltIn.VarArrayHighBound(WebElementList,1)
+  If (Count < 1) Then
     WebElementList = qaObject.WaitForControls(objSelector)
   End If
   GetWebElementList = WebElementList

@@ -23,20 +23,11 @@
 		<Node name="logs">
 			<Node name="log idx=0000">
 				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43054.5476392014"/>
+				<Prp name="datetime" type="D" value="43054.5645189583"/>
 				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{240E661D-23E0-4F15-8F7C-4154B9507C88}"/>
+				<Prp name="key" type="S" value="{6744FDC4-BE99-41AC-89C9-8E4DB1B19E6B}"/>
 				<Prp name="nameofroot" type="S" value="Script Test Log [DriverLib\Main]"/>
-				<Prp name="relpath" type="S" value="11_15_2017_1_08 PM_36_27\Description.tcLog"/>
-				<Prp name="status" type="I" value="0"/>
-			</Node>
-			<Node name="log idx=0001">
-				<Prp name="caption" type="S" value=""/>
-				<Prp name="datetime" type="D" value="43054.5512647569"/>
-				<Prp name="description" type="S" value=""/>
-				<Prp name="key" type="S" value="{1F385ACB-7002-4A13-91DE-5CB5E67F3709}"/>
-				<Prp name="nameofroot" type="S" value="Script Test Log [DriverLib\Main]"/>
-				<Prp name="relpath" type="S" value="11_15_2017_1_13 PM_49_275\Description.tcLog"/>
+				<Prp name="relpath" type="S" value="11_15_2017_1_32 PM_54_448\Description.tcLog"/>
 				<Prp name="status" type="I" value="0"/>
 			</Node>
 		</Node>

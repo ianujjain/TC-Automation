@@ -7,11 +7,8 @@
 		<child name="qaGlobalVar" key="{C4229A6A-B65F-43E9-AF84-B6A0B6DB86F7}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
 			<data path="qaGlobalVar.svb" />
 		</child>
-		<child name="qaActions" key="{E23E8AA8-06D8-4AD0-97C9-80F3E423F319}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
-			<data path="qaActions.svb" />
-		</child>
-		<child name="qaAppConfig" key="{F3B8FB4D-4911-4A61-AE60-3D3E26657451}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
-			<data path="qaAppConfig.svb" />
+		<child name="qaKeyWord" key="{E23E8AA8-06D8-4AD0-97C9-80F3E423F319}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="qaKeyWord.svb" />
 		</child>
 		<child name="qaUtil" key="{FAD4E53C-8416-4398-821E-AAB33220E65C}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
 			<data path="qaUtil.svb" />
@@ -43,20 +40,23 @@
 		<child name="qaSendMail" key="{8E0F196A-33E6-4E7A-9FFD-321382405307}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
 			<data path="qaSendMail.svb" />
 		</child>
-		<child name="qaFunction" key="{90323698-65D8-4322-B5B6-AD43DF60A251}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
-			<data path="qaFunction.svb" />
+		<child name="qaActions" key="{90323698-65D8-4322-B5B6-AD43DF60A251}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="qaActions.svb" />
+		</child>
+		<child name="qaObjectRepository" key="{C9FAF832-8356-4589-A29C-7EDB1DEEC231}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="qaObjectRepository.svb" />
 		</child>
 	</children>
 	<folders>
 		<folder caption="Object" description="A logical folder that is used to organize project items and elements." moniker="">
 			<references>
 				<ref key="{B0E728E3-EA2F-43C2-9A48-DD683D6A82D5}" />
+				<ref key="{C9FAF832-8356-4589-A29C-7EDB1DEEC231}" />
 			</references>
 		</folder>
-		<folder caption="AppConfig" description="A logical folder that is used to organize project items and elements." moniker="">
+		<folder caption="GlobalVar" description="A logical folder that is used to organize project items and elements." moniker="">
 			<references>
 				<ref key="{C4229A6A-B65F-43E9-AF84-B6A0B6DB86F7}" />
-				<ref key="{F3B8FB4D-4911-4A61-AE60-3D3E26657451}" />
 			</references>
 		</folder>
 		<folder caption="Action" description="A logical folder that is used to organize project items and elements." moniker="">

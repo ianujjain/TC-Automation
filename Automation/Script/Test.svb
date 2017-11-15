@@ -379,3 +379,5 @@ Sub IndicatorDemo()
   Indicator.Hide() 
 
 End Sub
+
+

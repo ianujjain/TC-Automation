@@ -1,7 +1,8 @@
-﻿'USEUNIT qaActions
-'USEUNIT qaGlobalVar
+﻿'USEUNIT qaGlobalVar
+'USEUNIT qaKeyWord
 'USEUNIT qaLogReport
 'USEUNIT qaObject
+'USEUNIT qaObjectRepository
 'USEUNIT qaSendMail
 'USEUNIT qaTestCases
 'USEUNIT qaUtil
@@ -25,10 +26,10 @@ Sub Main
     Dim ObjRepoPath, ObjRepoName, IsObjRepoCreated
     
     Set qaGlobalVar.OBJREPO = CreateObject("Scripting.Dictionary")
-    ObjRepoName = qaObject.GetObjectRepository(qaGlobalVar.SUITETORUN)
-    ObjRepoPath = qaObject.GetInputFilePath(qaGlobalVar.SUITETORUN)
-  
-    IsObjRepoCreated = qaObject.CreateObjRepo(qaGlobalVar.OBJREPO,ObjRepoName,ObjRepoPath)
+    
+    ObjRepoName       =   qaObjectRepository.GetWebObjectRepositoryName()
+    ObjRepoPath       =   qaGlobalVar.GetInputFilePath()
+    IsObjRepoCreated  =   qaObjectRepository.GetWebObjectRepository(qaGlobalVar.OBJREPO,ObjRepoName,ObjRepoPath)
 
     If(IsObjRepoCreated)Then
       Call qaLogReport.LogReportInArrayList("Log Report If Object Repository is successfully created.,Object Repository is successfully created for " & qaGlobalVar.SUITETORUN &",PASS,Null")
@@ -38,12 +39,12 @@ Sub Main
     End If
   
     '**********************************************************************************************************************************************************
-    'Load All TC Into 2D- Array.
+    'Load All TCs Into 2D- Array.
     '**********************************************************************************************************************************************************
-    Dim TCSheetPath,IsTestCaseCreated,ArrTestCase()
+    Dim InputFilePath,IsTestCaseCreated,ArrTestCase()
   
-    TCSheetPath = qaObject.GetInputFilePath(qaGlobalVar.SUITETORUN)    
-    IsTestCaseCreated = qaTestCases.GetArrTestCase(ArrTestCase,TCSheetPath)  
+    InputFilePath     =   qaGlobalVar.GetInputFilePath()  
+    IsTestCaseCreated =   qaTestCases.GetTestCase(ArrTestCase,InputFilePath)  
   
     If(IsTestCaseCreated)Then
       Call qaLogReport.LogReportInArrayList("Log Report If Test Cases is successfully loaded in Memory.,Test Cases is successfully loaded in Memory for " & qaGlobalVar.SUITETORUN &",PASS,Null")'Null
@@ -57,7 +58,7 @@ Sub Main
     'Test Case Execution.
     '********************************************************************************************************************************************************** 
     
-    Dim Description, Action, IsExcute2ObjectAlias, ObjectValue, Data, OverrideData, IsExcute,Excute
+    Dim Description, Action, ObjectAlias, ObjectValue, Data, OverrideData, IsExcute,Excute
     Dim Attr
     
     For ArrIndex = 1 To UBound(ArrTestCase)
@@ -121,10 +122,12 @@ Sub Main
             Call qaLogReport.LogReportInArrayList("Test Case," & Description & ",END,44")
           End IF
         Else
-          ObjectValue = qaObject.GetObjectSelector(ObjectAlias)
+          '****************************************************
+          ObjectValue = qaObjectRepository.GetWebObjectSelector(ObjectAlias)
+          '****************************************************
           IF (ObjectValue <> "NULL" OR ObjectValue <> "" OR IsEmpty(ObjectValue) OR IsEmpty(ObjectValue)) Then
             '*************************************************************************
-            Call qaActions.Action(Action, ObjectValue,Data, OverrideData)
+            Call qaKeyWord.Action(Action, ObjectValue, Data, OverrideData)
             '*************************************************************************
             If Err.Number <> 0 Then
               Call qaLogReport.LogReportInArrayList("Test Case Failed at,"+Description+",FAIL,Null")
@@ -145,11 +148,4 @@ Sub Main
     Call qaLogReport.GenerateReport
     Call qaSendMail.SendEmailByOutlook
     Call qaUtil.TerminateProcess
-'    If Err.Number <> 0 Then
-'      Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"
-'      Err.Clear()
-'      Call qaLogReport.GenerateReport
-'      Call qaUtil.TerminateProcess
-'    End If
-'  ON ERROR GOTO 0
 End Sub
