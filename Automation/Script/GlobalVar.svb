@@ -1,25 +1,85 @@
 ﻿' Defining all Global Variables
-Dim APPNAME,APP_INDEX,FILEPATHVALUE,XLOBJ,RESULT_WBOOK,WSHEET,GRRC_DFL,PREFILL_VAL, DEL_FILE_TBL_ID
-Dim APPSTOTEST,PAGEOBJ,PAROBJ,DICTOBJ, MDBINPUTPARAMS,ENVIRONMENT,SUITETORUN
-Dim USERNM,PASSWORD,INSIGHTANALYSTUSER,INSIGHTANALYSTUSERPASS,INSIGHTMANUSER,INSIGHTMANPASS
-Dim FILEINPUTEXCEL, FILEERRLOGS, ALLTEMPFILES, DWNFILEXML, DWNFILEPDF, TEMPVAR, DWNFILE, APPLIST
-Dim OBJREPO,TEST_REPORT, TCNAME, PERFLOGS, IGNEXECCOND, DWNFOLDER, BACKUPFOLDER, TEMPFOLDER,ERRCOUNT,RERUNVAR
-Dim TCSTEP,REPEXPORTS,  RERUNWS, DEBUGMODE,APPOBJREP, EXTLIBFOLD,UNIPDFIMGMASK,OLDLOGIN,REPMAPPING,APPMAPPING
-Dim DWNFILEZIP, ZIPFLAG, BCKZIPFOLDER
+Dim APPURL,USERNAME,PASSWORD,ENVIRONMENT
+Dim BROWSERNAME,LOGINURL,PAGEURL
+Dim SUITETORUN
+
+Dim TESTREPORT
+Dim REPORTPATH
+Dim OBJREPO
+
+Dim REPORTTYPE
+'REPORTTYPE="EXCEL"
+ReportType="CSV"
+
+Dim IsIGNORECONDITION
+IsIGNORECONDITION = "N"
+
+Dim ARRLOG
+Dim TCDESCRIPTION
+
 
 'Set Values For Global Variables
+'BROWSERNAME = "chrome"
+BROWSERNAME = "iexplore"
+'BROWSERNAME = "firefox"
+'BROWSERNAME = "chrome"
+'BROWSERNAME = "edge"
 
-TESTBROWSER = "iexplore"
-LOGINURL = "https://*seic.com/*"
-PAGEURL = "https://*seic.com/*"
+
 
 '##################################################################################
+
 '###############################  QA CONFIGURATION  ###############################
-'##################################################################################
-APPURL = "https://qa.ims.ea.corp.seic.com"
-USERNM = "Aazim_qa"
-PASSWORD = "Rinnegan@04"
+APPURL = "http://opensource.demo.orangehrmlive.com/"
+PAGEURL = "http://*orangehrmlive.com/*"
+USERNAME = "admin"
+PASSWORD = "admin"
 ENVIRONMENT = "QA"
+'ENVIRONMENT = "PILOT"
+'ENVIRONMENT = "PROD"
+SUITETORUN = "ADMINREG"
 '##################################################################################
+
+'##############################  E-Mail CONFIGURATION  ############################
+Dim SUBJECT, BODY, EMAILRECIPIENT
+
+Sub SetEmailParam
+  Select Case aqString.ToUpper(qaGlobalVar.ENVIRONMENT)
+    
+    Case "QA"
+      SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
+      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      EMAILRECIPIENT = "jaindrive@hotmail.com; ianuj.jain.10@gmail.com"
+        
+    Case "PILOT"
+      SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
+      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      EMAILRECIPIENT = "jaindrive@hotmail.com"
+        
+    Case "PROD"
+      SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
+      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      EMAILRECIPIENT = "jaindrive@hotmail.com"
+      
+  End Select
+End Sub
 '##################################################################################
+
+
+'##############################  MAPPING CONFIGURATION  ###########################
+Dim REPMAPPING, APPMAPPING
+Sub InitializeStaticData()
+  'initialize data about Object Repository mapping
+  Set qaGlobalVar.REPMAPPING = CreateObject("Scripting.Dictionary")
+  qaGlobalVar.REPMAPPING.Add "ADMINREG","ADMINOBJREPO"
+  
+  'Initialize data about Object Repository to APPNAME mapping
+  Set qaGlobalVar.APPMAPPING = CreateObject("Scripting.Dictionary")
+  qaGlobalVar.APPMAPPING.Add "ObjRepo","OrangeHRM"
+  qaGlobalVar.APPMAPPING.Add "ADMINOBJREPO","ADMIN"
+End Sub
+
 '##################################################################################
+Function GetInputFilePath 
+  GetInputFilePath = Project.Path + "InputfFile\" + qaGlobalVar.APPMAPPING.item(qaGlobalVar.REPMAPPING.item(qaGlobalVar.SUITETORUN)) + ".xlsx"
+end Function

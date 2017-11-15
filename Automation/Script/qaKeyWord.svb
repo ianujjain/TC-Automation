@@ -1,0 +1,23 @@
+﻿'USEUNIT qaActions
+'USEUNIT qaGlobalVar
+
+Function Action(ActionKey,objSelector,Data,OverrideData)
+	Select Case ActionKey
+    Case "OPEN"
+      Call qaActions.OpenBrowser 
+  	Case "KEYIN"
+      Call qaActions.EnterText(objSelector,Data)
+    Case "CLICK"
+      Call qaActions.Click(objSelector)
+    CASE "LISTITEM"   
+      Call qaActions.SelectOptionByValue(objSelector,Data)
+    Case "WAIT"
+      Call qaActions.Wait(Data)
+    Case "SYNC"
+      Call qaActions.Sync(objSelector)
+    Case "REPORT"
+      Call qaActions.LogReport(objSelector,Data)
+    Case "VERFYCOLUMN"
+      Call qaActions.VerifyColumn(objSelector,Data)
+  End Select
+End Function

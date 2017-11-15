@@ -1,26 +1,110 @@
-﻿'USEUNIT qaFunction
+﻿'USEUNIT qaObject
+'USEUNIT qaLogReport
 'USEUNIT qaGlobalVar
 
-Function Action(ActionKey,objSelector,Data,OverrideData)
+Function OpenBrowser
+  Browsers.Item(qaGlobalVar.BROWSERNAME).Run(qaGlobalVar.APPURL)
+  Call Sys.Browser(qaGlobalVar.BROWSERNAME).Page(qaGlobalVar.APPURL)
+End Function
+
+Function Click(ObjSelector)
   Dim WebElement
-	Select Case ActionKey
-    Case "OPEN"
-      Dim Page
-      Browsers.Item(qaGlobalVar.BROWSERNAME).Run(qaGlobalVar.APPURL)
-      Set Page = Sys.Browser(qaGlobalVar.BROWSERNAME).Page(qaGlobalVar.APPURL) 
-  	Case "KEYIN"
-      Call qaFunction.EnterText(objSelector,Data)
-    Case "CLICK"
-      Call qaFunction.Click(objSelector)
-    CASE "LISTITEM"   
-      Call qaFunction.SelectOptionByValue(objSelector,Data)
-    Case "WAIT"
-      Call qaFunction.Wait(Data)
-    Case "SYNC"
-      Call qaFunction.Sync(objSelector)
-    Case "REPORT"
-      Call qaFunction.LogReport(objSelector)
-    Case "VERFYCOLUMN"
-      Call qaFunction.VerifyColumn(objSelector,Data)
-  End Select
+  Set WebElement = qaObject.GetWebElement(ObjSelector)
+  ON ERROR Resume NEXT
+  WebElement.scrollIntoView(True)
+  ON ERROR GOTO 0
+  call WebElement.click()
+End Function
+
+Function EnterText(ObjSelector,Data)
+  Dim WebElement
+  Set WebElement = qaObject.GetWebElement(ObjSelector)
+  ON ERROR Resume NEXT
+  WebElement.scrollIntoView(True)
+  ON ERROR GOTO 0
+  Log.Enabled = False
+  WebElement.value = ""
+  Log.Enabled = TRUE
+  WebElement.Focus
+  WebElement.click()
+  Sys.Desktop.Keys Data
+End Function
+
+Function SelectOptionByValue(ObjSelector,Data)
+  Dim WebElement
+  Set WebElement = qaObject.GetWebElement(objSelector)
+  ON ERROR Resume NEXT
+  WebElement.scrollIntoView(True)
+  ON ERROR GOTO 0
+  WebElement.click()
+  Sys.Desktop.Keys CStr(Data)
+  aqutils.Delay 1000
+  Sys.Desktop.Keys "[Tab]"
+  aqutils.Delay 1000
+End Function
+
+Function Sync(ObjSelector)
+  Dim WebElement
+  Set WebElement = qaObject.GetObject(ObjSelector)   
+  If WebElement is Nothing then
+    Set WebElement = qaObject.WaitForControl(ObjSelector)
+  End If
+  Set Sync =  WebElement
+End Function
+
+Function Wait(Time)
+  aqUtils.Delay(aqConvert.StrToInt(Time))
+End Function
+
+Function LogReport(ObjSelector,Data)
+  Dim IsStatus, WebElements                  
+  Set WebElements = qaObject.GetWebElement(ObjSelector)
+  If (WebElements is Nothing)Then
+    IsStatus = "FAIL"
+  Else
+    IsStatus = "PASS"
+  End If        
+  Call qaLogReport.LogReportInArrayList(qaGlobalVar.TCDESCRIPTION &","& Data & "," & IsStatus+",Null")
+End Function
+
+Function VerifyColumn(ObjSelector,Data)
+  Dim IsResult:IsResult = False
+  Dim WebElementList, Count
+  
+  WebElementList = qaObject.GetWebElementList(ObjSelector)
+  Count = BuiltIn.VarArrayHighBound(WebElementList,1)
+    
+  If Count > -1 Then
+    For i=0 To Count
+      If(aqString.Trim(WebElementList(i).contentText) = aqString.Trim(Data))Then
+        IsResult = True
+      End If 
+    Next
+  Else
+    IsResult = False
+  End If
+  If (IsResult)Then
+    IsResult = "PASS"
+  Else
+    IsResult = "FAIL" 
+  End If        
+  Call qaLogReport.LogReportInArrayList(qaGlobalVar.TCDESCRIPTION &","& Data & "," & IsResult+",Null")
+End Function
+
+Function GetColumnPosition(ObjSelector,Data)
+  GetColumnPosition = 0
+  Dim WebElementList, Count
+  
+  WebElementList = qaObject.GetWebElementList(ObjSelector)
+  Count = BuiltIn.VarArrayHighBound(WebElementList,1)
+    
+  If Count > -1 Then
+    For i = 0 To Count
+      If(aqString.Trim(WebElementList(i).contentText) = aqString.Trim(Data))Then
+        GetColumnPosition = (i+1)
+      End If 
+    Next
+  Else
+    GetColumnPosition = 0
+  End If
 End Function

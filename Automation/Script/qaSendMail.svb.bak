@@ -60,23 +60,26 @@ End Function
 Function SendEmailByOutlook
   Dim objOutlook, objMail
   Call qaUtil.closeOpenApp("OUTLOOK")
+  Call qaGlobalVar.SetEmailParam()
   Err.Clear
-  On Error Resume Next
+
 
   Set objOutlook = CreateObject("Outlook.Application")
   Set objMail = objOutlook.CreateItem(0)
   objMail.Display
   objMail.Recipients.Add (qaGlobalVar.EMAILRECIPIENT)
   objMail.Subject = qaGlobalVar.SUBJECT
-  objMail.Body = Body
+  objMail.Body = qaGlobalVar.BODY
   
 '  aqString.ListSeparator = ","
 '  For i = 0 To aqString.GetListLength(Attachments) - 1 
 '    objMail.Attachments.Add(aqString.GetListItem(Attachments, i))
 '  Next
   objMail.Attachments.Add(qaGlobalVar.REPORTPATH)
-  
-  objMail.Send  
+  'objMail.Attachments.Add("D:\A.xlsx")
+  aqUtils.Delay 20000
+  Call objMail.Send  
+  aqUtils.Delay 5000
   objOutlook.Quit
   Set objMail = Nothing
   Set objOutlook = Nothing
@@ -88,5 +91,5 @@ Function SendEmailByOutlook
     Log.Message "Message to <"&qaGlobalVar.EMAILRECIPIENT&"> was successfully sent"
     SendEmailByOutlook = True
   End If
-  Call qaUtil.closeOpenApp("OUTLOOK")
+  'Call qaUtil.closeOpenApp("OUTLOOK")
 End Function

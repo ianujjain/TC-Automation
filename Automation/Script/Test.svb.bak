@@ -280,7 +280,7 @@ End Function
 
 Sub dd
   Dim WebElementList
-  Set WebElementList =  TestGetObjectByQuerySelector()
+  Set WebElementList = TestGetObjectByQuerySelector()
   
   Log.Message UBound(WebElementList,1)
 End Sub
@@ -378,4 +378,20 @@ Sub IndicatorDemo()
   ' Hides the indicator icon
   Indicator.Hide() 
 
+End Sub
+
+
+Sub ddddd(Sender, Window, LogParams)
+
+  LogParams.MessageText = "An unexpected window has appeared."
+  ' Specifies the string that will be posted to the Additional Info panel
+  LogParams.AdditionalText = "The " & Window.Name & " window has appeared."
+  ' ...
+  LogParams.Priority = pmHighest
+  LogParams.FontStyle.Bold = True
+  ' ...
+  ' Specifies the color settings
+  LogParams.FontColor = clSilver
+  LogParams.Color = clFuchsia
+  
 End Sub
