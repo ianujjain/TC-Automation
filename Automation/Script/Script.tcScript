@@ -43,6 +43,9 @@
 		<child name="qaSendMail" key="{8E0F196A-33E6-4E7A-9FFD-321382405307}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
 			<data path="qaSendMail.svb" />
 		</child>
+		<child name="qaFunction" key="{90323698-65D8-4322-B5B6-AD43DF60A251}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="qaFunction.svb" />
+		</child>
 	</children>
 	<folders>
 		<folder caption="Object" description="A logical folder that is used to organize project items and elements." moniker="">
@@ -59,6 +62,7 @@
 		<folder caption="Action" description="A logical folder that is used to organize project items and elements." moniker="">
 			<references>
 				<ref key="{E23E8AA8-06D8-4AD0-97C9-80F3E423F319}" />
+				<ref key="{90323698-65D8-4322-B5B6-AD43DF60A251}" />
 			</references>
 		</folder>
 		<folder caption="Util" description="A logical folder that is used to organize project items and elements." moniker="">

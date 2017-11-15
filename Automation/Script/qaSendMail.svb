@@ -1,27 +1,25 @@
-﻿Sub MainTest
-  If SendEmail( "ianuj.jain.10@gmail.com",_
-              "jaindrive@hotmail.com",_
-              "Subject"&index, _
-              "Message body",_
-              "D:\TestResults\A.xlsx,D:\TestResults\B.xlsx,D:\TestResults\C.xlsx") Then
-  Else
-    Log.Message "Not Send"
-  End If
+﻿'USEUNIT qaGlobalVar
+'USEUNIT qaUtil
+Sub MainTest
+'  If SendEmail( "ianuj.jain.10@gmail.com",_
+'              "jaindrive@hotmail.com",_
+'              "Subject"&index, _
+'              "Message body",_
+'              "D:\TestResults\A.xlsx,D:\TestResults\B.xlsx,D:\TestResults\C.xlsx") Then
+'  Else
+'    Log.Message "Not Send"
+'  End If
   
 'Send Mail By Outlook
-  If SendEmailByOutlook("jaindrive@hotmail.com",_
-              "Outlook", _
-              "Message body",_
-              "D:\TestResults\A.xlsx,D:\TestResults\B.xlsx,D:\TestResults\C.xlsx") Then
+  If SendEmailByOutlook(qaGlobalVar.EMAILRECIPIENT,qaGlobalVar.SUBJECT,qaGlobalVar.BODY,"D:\A.xlsx") Then
   Else
     Log.Message "Not Send"
   End If
-
 End Sub
 
 Function SendEmail(Sender, Recipient, Subject, Body, Attachment)
   Dim i, schema, mConfig, mMessage
-
+  
   Err.Clear
   On Error Resume Next
 
@@ -59,25 +57,25 @@ Function SendEmail(Sender, Recipient, Subject, Body, Attachment)
   End If
 End Function
 
-Function SendEmailByOutlook(Recipients,Subject,Body,Attachments)
+Function SendEmailByOutlook
   Dim objOutlook, objMail
-  
+  Call qaUtil.closeOpenApp("OUTLOOK")
   Err.Clear
   On Error Resume Next
 
   Set objOutlook = CreateObject("Outlook.Application")
   Set objMail = objOutlook.CreateItem(0)
   objMail.Display
-  objMail.Recipients.Add (Recipients)
-  objMail.Subject = Subject
+  objMail.Recipients.Add (qaGlobalVar.EMAILRECIPIENT)
+  objMail.Subject = qaGlobalVar.SUBJECT
   objMail.Body = Body
   
-  aqString.ListSeparator = ","
-  For i = 0 To aqString.GetListLength(Attachments) - 1 
-    objMail.Attachments.Add(aqString.GetListItem(Attachments, i))
-  Next
-  'objMail.Attachments.Add("D:\TestResults\A.xlsx")
-  
+'  aqString.ListSeparator = ","
+'  For i = 0 To aqString.GetListLength(Attachments) - 1 
+'    objMail.Attachments.Add(aqString.GetListItem(Attachments, i))
+'  Next
+  objMail.Attachments.Add(qaGlobalVar.REPORTPATH)
+  aqUtils.Delay 5000
   objMail.Send  
   objOutlook.Quit
   Set objMail = Nothing
@@ -87,8 +85,8 @@ Function SendEmailByOutlook(Recipients,Subject,Body,Attachments)
     Log.Error "Email cannot be sent", Err.Description
     SendEmailByOutlook = False
   Else
-    Log.Message "Message to <SendEmailByOutlook> was successfully sent"
+    Log.Message "Message to <"&qaGlobalVar.EMAILRECIPIENT&"> was successfully sent"
     SendEmailByOutlook = True
   End If
-  
+  Call qaUtil.closeOpenApp("OUTLOOK")
 End Function

@@ -1,12 +1,13 @@
 ﻿'USEUNIT qaActions
-'USEUNIT qaObject
 'USEUNIT qaGlobalVar
-'USEUNIT qaUtil
 'USEUNIT qaLogReport
+'USEUNIT qaObject
+'USEUNIT qaSendMail
 'USEUNIT qaTestCases
+'USEUNIT qaUtil
 
 Sub Main  
-  ON ERROR RESUME NEXT
+  'ON ERROR RESUME NEXT
     Call qaUtil.TerminateProcess
     '**********************************************************************************************************************************************************
     'Create an ArrayList Collection Object For Save Test Result.
@@ -37,7 +38,7 @@ Sub Main
     End If
   
     '**********************************************************************************************************************************************************
-    'Load All TC Into2D- Array.
+    'Load All TC Into 2D- Array.
     '**********************************************************************************************************************************************************
     Dim TCSheetPath,IsTestCaseCreated,ArrTestCase()
   
@@ -61,13 +62,14 @@ Sub Main
     
     For ArrIndex = 1 To UBound(ArrTestCase)
     
-      Description = aqString.Trim(ArrTestCase(ArrIndex,0)) 
+      Description   =   aqString.Trim(ArrTestCase(ArrIndex,0)) 
+      Action        =   aqString.ToUpper(aqString.Trim(ArrTestCase(ArrIndex,1)))
+      ObjectAlias   =   aqString.Trim(ArrTestCase(ArrIndex,2))
+      Data          =   aqString.Trim(ArrTestCase(ArrIndex,3))
+      OverrideData  =   aqString.Trim(ArrTestCase(ArrIndex,4))
+      IsExcute      =   aqString.ToUpper(aqString.Trim(ArrTestCase(ArrIndex,5)))
+      
       qaGlobalVar.TCDESCRIPTION = Description
-      Action = aqString.ToUpper(aqString.Trim(ArrTestCase(ArrIndex,1)))
-      ObjectAlias = aqString.Trim(ArrTestCase(ArrIndex,2))
-      Data = aqString.Trim(ArrTestCase(ArrIndex,3))
-      OverrideData = aqString.Trim(ArrTestCase(ArrIndex,4))
-      IsExcute = aqString.ToUpper(aqString.Trim(ArrTestCase(ArrIndex,5)))
       
       'Log Test Case Name In TestComplete Log.
       IF ObjectAlias = "TCBEGIN" Then        
@@ -126,7 +128,7 @@ Sub Main
             '*************************************************************************
             If Err.Number <> 0 Then
               Call qaLogReport.LogReportInArrayList("Test Case Failed at,"+Description+",FAIL,Null")
-              'Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"
+              Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"
               Err.Clear()
               qaGlobalVar.IsIGNORECONDITION = "Y"
             End If
@@ -141,6 +143,7 @@ Sub Main
     'Generate Test Result Report As Per Set qaGlobalVar.REPORTTYPE Parameter
     '**********************************************************************************************************************************************************  
     Call qaLogReport.GenerateReport
+    Call qaSendMail.SendEmailByOutlook
     Call qaUtil.TerminateProcess
 '    If Err.Number <> 0 Then
 '      Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"

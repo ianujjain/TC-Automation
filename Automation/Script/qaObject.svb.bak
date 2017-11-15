@@ -3,6 +3,7 @@
 
 Function GetObject(objSelector)
   Dim findMethod, findParam, strLen, addParam
+  Dim WebElementList
 	Set GetObject = NOTHING
 
 	aqString.ListSeparator = ";"
@@ -23,15 +24,12 @@ Function GetObject(objSelector)
       Set GetObject = qaObject.GetObjectByXpath(findParam)
     Case  "cssSelector"
       Set GetObject = qaObject.GetObjectByQuerySelector(findParam)
-    Case  "cssSelectorAll" 
-      Set GetObject = qaObject.getObjectByQSSALL(findParam) 
+    Case  "cssSelectorAll"
+      GetObject = qaObject.QuerySelectorAll(findParam)
     Case  "jqueryTextFind"   
       Set GetObject = qaObject.getObjectByJquery(findParam,addParam)
     Case  "skipFind"
-      'set GetObject = OBJREPO
     Case Else               
-      'ErrDet = "Unknown Find Method, Please check"
-      'call ErrorHandler.catchException("Unknown Find Method", ErrDet)
     Exit Function
   End Select
 End Function
@@ -62,18 +60,18 @@ Function GetObjectByQuerySelector(QuerySelector)
   End If
 end Function
 
-Function GetObjectByQuerySelectorAll(QuerySelector)
-  Dim WebElement, PageObj
-  Set GetObjectByQuerySelectorAll = NOTHING
+Function QuerySelectorAll(QuerySelector)
+  Dim PageObj, WebElementList
+  Set QuerySelectorAll = NOTHING
   Set PageObj = Sys.Browser(qaGlobalVar.BROWSERNAME).Page(qaGlobalVar.PAGEURL)
   PageObj.Wait(5000)
   If NOT(IsNull(PageObj))Then 
-    Set WebElement = PageObj.QuerySelectorAll(QuerySelector)
-    If Not(Isnull(WebElement)) and not(IsEmpty(WebElement)) Then
-      Set GetObjectByQuerySelectorAll = WebElement
+    WebElementList = PageObj.QuerySelectorAll(QuerySelector)
+    If Not(Isnull(WebElementList)) and not(IsEmpty(WebElementList)) Then
+      QuerySelectorAll = WebElementList
     End If 
   End If
-end Function
+End Function
 
 Function WaitForControl(objSelector)
   Dim waitTime:waitTime = 50'100
@@ -100,6 +98,33 @@ Function WaitForControl(objSelector)
     i = i + 1
   Wend
   set WaitForControl = WebElement 
+end Function
+
+Function WaitForControls(objSelector)
+  Dim waitTime:waitTime = 50'100
+  Dim WebElementList,Page
+  i = 0
+  WebElementList = qaObject.GetObject(objSelector)
+  while WebElementList is Nothing
+    if i > 180 and i < 183 then
+        log.Message "It's been 3 minutes finding this object, Please check app stat"
+    end if
+    
+    If i > waitTime then
+        'ErrDet = "Control not Found: Object = " & cntrlAliasName
+        'call ErrorHandler.catchException("Control not Found", ErrDet)
+        set WaitForControls = NOTHING
+        Exit Function
+    End If
+    'Get a web page object
+    Set Page = Sys.Browser(qaGlobalVar.BROWSERNAME).Page(qaGlobalVar.PAGEURL)
+    Page.Wait(2000)
+    
+    WebElementList = qaObject.GetObject(objSelector)
+    call aqutils.Delay(1000,"Waiting for Obj with Selector: " + objSelector)   
+    i = i + 1
+  Wend
+  WaitForControls = WebElementList 
 end function
 
 Function CreateObjRepo(ByRef ObjRepo, ObjSheetName, XlWorkBk)
@@ -176,9 +201,8 @@ Function GetObjectSelector(objSelectorAlias)
 End Function
 
 Function GetWebElement(objSelector)
-  Set GetWebElement = NOTHING
   Dim WebElement
-
+  Set GetWebElement = NOTHING
   Set WebElement = qaObject.GetObject(objSelector)
    
   If WebElement is Nothing Then
@@ -186,4 +210,15 @@ Function GetWebElement(objSelector)
   End If
   
   Set GetWebElement = WebElement
+End Function
+
+Function GetWebElementList(objSelector)
+  Dim WebElementList
+  Set GetWebElementList = NOTHING
+  WebElementList = qaObject.GetObject(objSelector)
+  Log.Message UBound(WebElementList,1)
+  If Not(Isnull(WebElementList)) Then
+    WebElementList = qaObject.WaitForControls(objSelector)
+  End If
+  GetWebElementList = WebElementList
 End Function

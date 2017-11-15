@@ -1,9 +1,10 @@
 ﻿'USEUNIT qaActions
-'USEUNIT qaObject
 'USEUNIT qaGlobalVar
-'USEUNIT qaUtil
 'USEUNIT qaLogReport
+'USEUNIT qaObject
+'USEUNIT qaSendMail
 'USEUNIT qaTestCases
+'USEUNIT qaUtil
 
 Sub Main  
   ON ERROR RESUME NEXT
@@ -127,7 +128,7 @@ Sub Main
             '*************************************************************************
             If Err.Number <> 0 Then
               Call qaLogReport.LogReportInArrayList("Test Case Failed at,"+Description+",FAIL,Null")
-              'Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"
+              Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"
               Err.Clear()
               qaGlobalVar.IsIGNORECONDITION = "Y"
             End If
@@ -142,6 +143,7 @@ Sub Main
     'Generate Test Result Report As Per Set qaGlobalVar.REPORTTYPE Parameter
     '**********************************************************************************************************************************************************  
     Call qaLogReport.GenerateReport
+    Call qaSendMail.SendEmailByOutlook
     Call qaUtil.TerminateProcess
 '    If Err.Number <> 0 Then
 '      Log.Error "Error Found-> Error Number: {'"+ aqConvert.IntToStr(Err.Number)+"'}; Error Description: {'"+ Err.Description+"'}"

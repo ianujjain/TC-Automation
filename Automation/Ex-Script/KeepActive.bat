@@ -1,0 +1,1 @@
+cscript "%~dp0KeepActive.vbs"

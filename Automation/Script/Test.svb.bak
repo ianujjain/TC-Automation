@@ -278,23 +278,36 @@ End Function
 
 
 
-Sub TestGetObjectByQuerySelector
+Sub dd
+  Dim WebElementList
+  Set WebElementList =  TestGetObjectByQuerySelector()
+  
+  Log.Message UBound(WebElementList,1)
+End Sub
+
+
+Function TestGetObjectByQuerySelector
+  Set TestGetObjectByQuerySelector = NOTHING
   Dim WebElementList, CSSSelector
-  CSSSelector = "#resultTable > tbody > tr > td > a"
+  CSSSelector = "#resultTable > thead > tr > th > a"
   Dim Count
   
   WebElementList = QuerySelectorAll(CSSSelector)
   Count = BuiltIn.VarArrayHighBound(WebElementList,1)
     
   If Count > -1 Then
-      For i=0 To Count 
+    TestGetObjectByQuerySelector = WebElementList
+      For i=0 To Count
+        If(aqString.Trim(WebElementList(i).contentText) = "Status")Then
           Log.Message(aqString.Trim(WebElementList(i).contentText)) 
-          Log.Message(aqString.Trim(WebElementList(i).getAttribute("href"))) 
+          'Log.Message(aqString.Trim(WebElementList(i).getAttribute("href")))
+        End If 
       Next
   Else
       Log.Warning("Did not find any elements matching the CSS selector: " + CSSSelector)
   End If
-End Sub
+  
+End Function
 
 
 
@@ -349,11 +362,11 @@ Sub IndicatorDemo()
   ' Pushes text to the indicator
   Indicator.PushText("Hello!")
   ' Delays the script execution for 2 seconds
-  Call aqUtils.Delay(2000, Indicator.Text)
+  Call aqUtils.Delay(5000, Indicator.Text)
   
   ' Pushes new text to the indicator 
   Indicator.PushText("New indicator text.")
-  Call aqUtils.Delay(2000, Indicator.Text)
+  Call aqUtils.Delay(5000, Indicator.Text)
   
   ' Restores the previous indictor text - "Hello!"
   Indicator.PopText()

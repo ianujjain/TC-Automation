@@ -28,13 +28,17 @@ BROWSERNAME = "chrome"
 PAGEURL = "http://*orangehrmlive.com/*"
 SUITETORUN = "ADMINREG"
 '##################################################################################
+
 '###############################  QA CONFIGURATION  ###############################
-'##################################################################################
 APPURL = "http://opensource.demo.orangehrmlive.com/"
 USERNAME = "admin"
 PASSWORD = "admin"
 ENVIRONMENT = "QA"
 '##################################################################################
+
 '##############################  E-Mail CONFIGURATION  ############################
+Dim SUBJECT, BODY, EMAILRECIPIENT
+SUBJECT = "Automated Execution Completed For: " + SUITETORUN
+BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution status."& vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team."
+EMAILRECIPIENT = "jaindrive@hotmail.com"
 '##################################################################################
-EMAILRECIPIENT = "ajain1@seic.com"

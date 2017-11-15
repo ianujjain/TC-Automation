@@ -79,3 +79,17 @@ Sub MainTest
     End If
   Next
 End Sub
+
+Sub Dae
+  Dim dt
+
+  dt = Now
+  Log.Message aqConvert.DateTimeToFormatStr(dt, "%m/%d/%Y %H:%M")
+
+  'dt = aqDateTime.SetDateElements(2010, 1, 1) ' date only
+  Log.Message aqConvert.DateTimeToFormatStr(dt, "%m/%b/%Y %H:%M %p")
+
+  'dt = aqDateTime.SetTimeElements(10, 0, 0) ' time only
+  Log.Message aqConvert.DateTimeToFormatStr(dt, "%H:%M") 
+
+End Sub

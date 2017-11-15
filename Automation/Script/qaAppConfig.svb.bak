@@ -2,9 +2,19 @@
 Sub InitializeStaticData()
   'initialize data about Object Repository mapping
   Set qaGlobalVar.REPMAPPING = CreateObject("Scripting.Dictionary")
-  qaGlobalVar.REPMAPPING.Add "OrangeHRM","ObjRepo"
+  qaGlobalVar.REPMAPPING.Add "ADMINREG","ADMINOBJREPO"
   
   'Initialize data about Object Repository to APPNAME mapping
   Set qaGlobalVar.APPMAPPING = CreateObject("Scripting.Dictionary")
   qaGlobalVar.APPMAPPING.Add "ObjRepo","OrangeHRM"
+  qaGlobalVar.APPMAPPING.Add "ADMINOBJREPO","ADMIN"
+End Sub
+
+Sub SetEmailParam
+    Select Case qaGlobalVar.ENVIRONMENT
+    Case aqString.ToUpper(qaGlobalVar.ENVIRONMENT) = "QA"
+      
+    Case aqString.ToUpper(qaGlobalVar.ENVIRONMENT) = "PILOT"
+    Case aqString.ToUpper(qaGlobalVar.ENVIRONMENT) = "PROD"
+  End Select
 End Sub

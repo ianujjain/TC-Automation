@@ -278,23 +278,36 @@ End Function
 
 
 
-Sub TestGetObjectByQuerySelector
+Sub dd
+  Dim WebElementList
+  Set WebElementList = TestGetObjectByQuerySelector()
+  
+  Log.Message UBound(WebElementList,1)
+End Sub
+
+
+Function TestGetObjectByQuerySelector
+  Set TestGetObjectByQuerySelector = NOTHING
   Dim WebElementList, CSSSelector
-  CSSSelector = "#resultTable > tbody > tr > td > a"
+  CSSSelector = "#resultTable > thead > tr > th > a"
   Dim Count
   
   WebElementList = QuerySelectorAll(CSSSelector)
   Count = BuiltIn.VarArrayHighBound(WebElementList,1)
     
   If Count > -1 Then
-      For i=0 To Count 
+    TestGetObjectByQuerySelector = WebElementList
+      For i=0 To Count
+        If(aqString.Trim(WebElementList(i).contentText) = "Status")Then
           Log.Message(aqString.Trim(WebElementList(i).contentText)) 
-          Log.Message(aqString.Trim(WebElementList(i).getAttribute("href"))) 
+          'Log.Message(aqString.Trim(WebElementList(i).getAttribute("href")))
+        End If 
       Next
   Else
       Log.Warning("Did not find any elements matching the CSS selector: " + CSSSelector)
   End If
-End Sub
+  
+End Function
 
 
 

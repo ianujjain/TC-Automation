@@ -15,6 +15,8 @@ Sub TerminateProcess
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM chrome.exe /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM iexplore.exe /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM Excel.exe /T")
+  Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM OUTLOOK.EXE /T")
+  Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM opera.exe /T")
 end Sub
 
 sub closeOpenApp(AppName)
