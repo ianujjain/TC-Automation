@@ -11,8 +11,13 @@ Function GetWebObjectRepository(ByRef ObjRepo, ObjRepoSheetName, ObjRepExcelPath
   Dim IsDuplicate:IsDuplicate = FALSE
   GetWebObjectRepository = FALSE
   
+  Set objexcel = Nothing
+  Set objWorkbook = Nothing
+  Set objDriverSheet = Nothing
+  
   Call qaUtil.closeOpenApp("Excel")
-
+ 
+  
 	set objexcel = Createobject("Excel.Application")
 	Set objWorkbook = objExcel.WorkBooks.Open(ObjRepExcelPath)
 	Set objDriverSheet = objWorkbook.Worksheets(ObjRepoSheetName)
@@ -30,6 +35,10 @@ Function GetWebObjectRepository(ByRef ObjRepo, ObjRepoSheetName, ObjRepExcelPath
 			ObjRepo.Add Alias, Object 
 		End if
 	Next
+  
+  objexcel.Quit
+  Set objWorkbook = Nothing
+  Set objexcel = Nothing
   
 	If IsDuplicate = FALSE Then
 		GetWebObjectRepository = TRUE

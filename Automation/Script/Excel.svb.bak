@@ -78,7 +78,7 @@ Function CreateXSLLogFile
   CreateLogFile = False
   TimeStamp =  qaUtil.GetTimestamp()
   
-  qaGlobalVar.REPORTPATH = Project.Path + "TestResults\" & qaGlobalVar.SUITETORUN & "_Results_" & TimeStamp & ".xlsx"
+  qaGlobalVar.REPORTPATH = Project.Path + "TestResults\" & qaGlobalVar.SUITETORUN & "#_Results_" & TimeStamp & ".xlsx"
 
   Call qaUtil.closeOpenApp("excel")
     

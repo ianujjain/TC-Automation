@@ -10,6 +10,10 @@ Function GetTimestamp()
 End Function
 
 Sub TerminateProcess
+  Dim objexce
+  Set objexcel=Nothing
+  set objexcel = Createobject("Excel.Application")
+  Set objexcel=Nothing
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM firefox.exe /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM chrome.exe /T")
   Sys.OleObject("WScript.Shell").Exec("cmd /c TASKKILL /F /IM iexplore.exe /T")

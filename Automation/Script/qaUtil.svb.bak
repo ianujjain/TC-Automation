@@ -1,5 +1,4 @@
-﻿'USEUNIT qaAppConfig
-'USEUNIT qaGlobalVar
+﻿'USEUNIT qaGlobalVar
 
 Function GetTimestamp()
   Dim timeStamp

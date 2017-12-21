@@ -108,3 +108,11 @@ Function GetColumnPosition(ObjSelector,Data)
     GetColumnPosition = 0
   End If
 End Function
+
+Function UpLoadFile
+  
+End Function
+
+Function DownLoadFile
+  
+End Function

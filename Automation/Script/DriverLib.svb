@@ -8,7 +8,7 @@
 'USEUNIT qaUtil
 
 Sub Main  
-  ON ERROR RESUME NEXT
+  'ON ERROR RESUME NEXT
     Call qaUtil.TerminateProcess
     '**********************************************************************************************************************************************************
     'Create an ArrayList Collection Object For Save Test Result.

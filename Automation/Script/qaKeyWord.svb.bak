@@ -4,20 +4,24 @@
 Function Action(ActionKey,objSelector,Data,OverrideData)
 	Select Case ActionKey
     Case "OPEN"
-      Call qaFunction.OpenBrowser 
+      Call qaActions.OpenBrowser 
   	Case "KEYIN"
-      Call qaFunction.EnterText(objSelector,Data)
+      Call qaActions.EnterText(objSelector,Data)
     Case "CLICK"
-      Call qaFunction.Click(objSelector)
+      Call qaActions.Click(objSelector)
     CASE "LISTITEM"   
-      Call qaFunction.SelectOptionByValue(objSelector,Data)
+      Call qaActions.SelectOptionByValue(objSelector,Data)
     Case "WAIT"
-      Call qaFunction.Wait(Data)
+      Call qaActions.Wait(Data)
     Case "SYNC"
-      Call qaFunction.Sync(objSelector)
+      Call qaActions.Sync(objSelector)
     Case "REPORT"
-      Call qaFunction.LogReport(objSelector,Data)
+      Call qaActions.LogReport(objSelector,Data)
     Case "VERFYCOLUMN"
-      Call qaFunction.VerifyColumn(objSelector,Data)
+      Call qaActions.VerifyColumn(objSelector,Data)
+    Case "UPLOAD"
+      Call qaActions.UpLoadFile
+    Case "DOWNLOAD"
+      Call qaActions.DownLoadFile
   End Select
 End Function

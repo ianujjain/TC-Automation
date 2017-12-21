@@ -19,8 +19,8 @@ Dim TCDESCRIPTION
 
 
 'Set Values For Global Variables
-'BROWSERNAME = "chrome"
-BROWSERNAME = "iexplore"
+BROWSERNAME = "chrome"
+'BROWSERNAME = "iexplore"
 'BROWSERNAME = "firefox"
 'BROWSERNAME = "chrome"
 'BROWSERNAME = "edge"
@@ -47,17 +47,17 @@ Sub SetEmailParam
     
     Case "QA"
       SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
-      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      BODY = "Hi All,"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
       EMAILRECIPIENT = "jaindrive@hotmail.com; ianuj.jain.10@gmail.com"
         
     Case "PILOT"
       SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
-      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      BODY = "Hi All,"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
       EMAILRECIPIENT = "jaindrive@hotmail.com"
         
     Case "PROD"
       SUBJECT = ENVIRONMENT & "-Automated Execution Completed For: " + SUITETORUN
-      BODY = "Hi All"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
+      BODY = "Hi All,"& vbcrlf & vbcrlf &"Kindly find attached today's execution test result."& vbcrlf & vbcrlf &"Browser Name:  "& BROWSERNAME & vbcrlf &"Test Suit Name:  "& SUITETORUN & vbcrlf &"Environment:  "& ENVIRONMENT & vbcrlf & vbcrlf &"Regards"& vbcrlf &"Automation Team"
       EMAILRECIPIENT = "jaindrive@hotmail.com"
       
   End Select
@@ -82,3 +82,33 @@ End Sub
 Function GetInputFilePath 
   GetInputFilePath = Project.Path + "InputfFile\" + qaGlobalVar.APPMAPPING.item(qaGlobalVar.REPMAPPING.item(qaGlobalVar.SUITETORUN)) + ".xlsx"
 end Function
+
+Dim TEMPSTORAGE
+Function InitTempStore
+  Set qaGlobalVar.TEMPSTORAGE = CreateObject("Scripting.Dictionary")
+End Function
+
+Function SetTempVaule(Key,Value)  
+  Dim IsDuplicate:IsDuplicate = FALSE
+  SetTempVaule = FALSE
+  If qaGlobalVar.TEMPSTORAGE.Exists(Key) Then
+    Log.Warning "*** Key Already Exists In Temp Storage. {Key ='" & Key & "'} ***"
+    IsDuplicate = True
+  Else
+    qaGlobalVar.TEMPSTORAGE.Add Key,Value 
+  End if
+  If IsDuplicate = FALSE Then
+		SetTempVaule = TRUE
+  Else
+    SetTempVaule = FALSE
+	End If
+End Function
+
+Function GetTempVaule(Key)
+  GetTempVaule = Null
+  if qaGlobalVar.TEMPSTORAGE.Exists(Key) Then
+    GetTempVaule = qaGlobalVar.OBJREPO(Key)
+  Else
+    Log.Message "Missing Value for {'" + Key +"'}"
+  End if
+End Function

@@ -19,5 +19,10 @@ Function Action(ActionKey,objSelector,Data,OverrideData)
       Call qaActions.LogReport(objSelector,Data)
     Case "VERFYCOLUMN"
       Call qaActions.VerifyColumn(objSelector,Data)
+    Case "UPLOAD"
+      Call qaActions.UpLoadFile
+    Case "DOWNLOAD"
+      Call qaActions.DownLoadFile
+    Case "GETOBJECT"
   End Select
 End Function

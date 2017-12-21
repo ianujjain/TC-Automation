@@ -1,5 +1,6 @@
 ﻿'USEUNIT qaLogReport
 'USEUNIT qaGlobalVar
+'USEUNIT qaObject
 
 function getRandTextInput
   dim strLength, str
@@ -380,18 +381,30 @@ Sub IndicatorDemo()
 
 End Sub
 
-
-Sub ddddd(Sender, Window, LogParams)
-
-  LogParams.MessageText = "An unexpected window has appeared."
-  ' Specifies the string that will be posted to the Additional Info panel
-  LogParams.AdditionalText = "The " & Window.Name & " window has appeared."
-  ' ...
-  LogParams.Priority = pmHighest
-  LogParams.FontStyle.Bold = True
-  ' ...
-  ' Specifies the color settings
-  LogParams.FontColor = clSilver
-  LogParams.Color = clFuchsia
+Sub RClick
+  Browsers.Item("chrome").Run("http://swisnl.github.io/jQuery-contextMenu/demo.html")
+  Call Sys.Browser("chrome").Page("http://swisnl.github.io/jQuery-contextMenu/demo.html")
+  aqUtils.Delay 5000
+  Set WebElement = GetObjectByXpath("//span[text()='right click me']")
+  WebElement.ClickR
   
+  aqUtils.Delay 5000
+  Set WebElement2 = GetObjectByXpath("//li/span[text()='Quit']")
+  WebElement2.Click
+  
+  Log.Message "Hello"
 End Sub
+
+Function GetObjectByXpath(xpath)
+  Dim WebElement, PageObj
+  Set GetObjectByXpath = NOTHING
+  Set PageObj = Sys.Browser("chrome").Page("http://swisnl.github.io/jQuery-contextMenu/demo.html")
+  PageObj.Wait(5000)
+  If NOT(IsNull(PageObj))Then
+    WebElement = PageObj.EvaluateXPath(xpath)
+    If Not(Isnull(WebElement)) and not(IsEmpty(WebElement)) Then
+      Set GetObjectByXpath = WebElement(0)
+    End If
+  End If 
+end Function
+
